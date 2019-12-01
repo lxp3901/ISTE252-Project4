@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Exercises
     </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="presentAddExerciseAlert()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let exercise of exercises; let i = index">
+      <ion-item>
+          {{exercise}}
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="danger" (click)="deleteExercice(i)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
