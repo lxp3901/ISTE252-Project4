@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
+
 export class Tab2Page {
 
   exercises = [];
@@ -46,18 +47,18 @@ export class Tab2Page {
   }
 
   addExercise(name: string) {
-    this.storage.addItems(name);
-    this.loadExercises();
+    this.storage.addItems("exercises", name);
+    this.exercises.push(name);
   }
 
   deleteExercice(index: number) {
     console.log("Delete exercise index: " + index);
-    this.storage.deleteItem(index);
-    this.loadExercises();
+    this.storage.deleteItem("exercises", index);
+    this.exercises.splice(index, 1);
   }
 
   loadExercises() {
-    this.storage.getItems().then(savedExercises => {
+    this.storage.getItems("exercises").then(savedExercises => {
       this.exercises = savedExercises;
     });
     console.log(this.exercises);

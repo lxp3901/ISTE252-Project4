@@ -9,4 +9,21 @@ export class Tab1Page {
 
   constructor() {}
 
+  exercises = [];
+  sets = [];
+
+  addExercise(name: string) {
+    this.exercises.push({
+      exerciseName: name,
+      exerciseNumber: this.exercises.length
+    });
+  }
+
+  addSet() {
+    this.sets.push({
+      setNumber: this.sets.length
+    });
+  }
+
+
 }

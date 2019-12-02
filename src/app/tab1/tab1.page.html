@@ -1,11 +1,39 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Profile
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
+<ion-content>
+  <ion-card *ngFor="let exercise of exercises">
+    <ion-card-header>
+      <ion-card-title>Exercise exercise.exerciseNumber</ion-card-title>
+      <ion-card-subtitle>Exercise Name</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Set 1</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-input type="number"></ion-input>
+        </ion-card-content>
+      </ion-card>
+    </ion-card-content>
+    <div class="center">
+      <ion-button fill="clear" size="large">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </div>
+    
+  </ion-card>
+  <div class="center">
+    <ion-button fill="clear" size="large">
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>
 <ion-footer> 
-  <ion-button size="default" expand="block">Start a workout</ion-button>
+  <ion-button size="default" expand="block">Log it</ion-button>
 </ion-footer>
