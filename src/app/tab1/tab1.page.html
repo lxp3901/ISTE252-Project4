@@ -8,8 +8,8 @@
 <ion-content>
   <ion-card *ngFor="let exercise of exercises">
     <ion-card-header>
-      <ion-card-title>Exercise exercise.exerciseNumber</ion-card-title>
-      <ion-card-subtitle>Exercise Name</ion-card-subtitle>
+      <ion-card-title>Exercise {{exercise.exerciseNumber}}</ion-card-title>
+      <ion-card-subtitle>{{exercise.exerciseName}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-card>
@@ -22,15 +22,16 @@
       </ion-card>
     </ion-card-content>
     <div class="center">
-      <ion-button fill="clear" size="large">
-        <ion-icon name="add-circle-outline"></ion-icon>
+      <ion-button fill="solid" size="small" shape="round">
+        Add Set
       </ion-button>
     </div>
     
   </ion-card>
   <div class="center">
-    <ion-button fill="clear" size="large">
-      <ion-icon name="add-circle-outline"></ion-icon>
+    
+    <ion-button fill="solid" shape="round" routerLink="/tab2">
+      Add Exercise
     </ion-button>
   </div>
 </ion-content>

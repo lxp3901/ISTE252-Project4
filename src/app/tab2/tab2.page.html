@@ -14,7 +14,7 @@
 <ion-content>
   <ion-list>
     <ion-item-sliding *ngFor="let exercise of exercises; let i = index">
-      <ion-item>
+      <ion-item (click)="selectExercise(exercise)">
           {{exercise}}
       </ion-item>
       <ion-item-options>

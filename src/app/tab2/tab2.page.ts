@@ -52,7 +52,6 @@ export class Tab2Page {
   }
 
   deleteExercice(index: number) {
-    console.log("Delete exercise index: " + index);
     this.storage.deleteItem("exercises", index);
     this.exercises.splice(index, 1);
   }
@@ -61,7 +60,10 @@ export class Tab2Page {
     this.storage.getItems("exercises").then(savedExercises => {
       this.exercises = savedExercises;
     });
-    console.log(this.exercises);
+  }
+
+  selectExercise(exercise) {
+    console.log(typeof exercise);
   }
 
 }
