@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StorageService } from '../services/storage.service';
+import { WorkoutService } from '../services/workout.service';
 import { AlertController, NavController } from '@ionic/angular';
 import {Router} from "@angular/router";
 
@@ -11,14 +11,11 @@ import {Router} from "@angular/router";
 })
 export class Tab1Page {
 
-  constructor(private storage: StorageService, 
-              public alertController: AlertController,
-              private navController: NavController,
-              private router: Router) {}
+  constructor(private alertController: AlertController,
+              private router: Router,
+              private workout: WorkoutService) {}
 
-  exercises = [];
-  sets = [];
-
+  
   loadExerciseTab() {
     // navigate to exercise list tab so the user can select an exercise
     // ../tab2/tab2.page.html
@@ -27,17 +24,10 @@ export class Tab1Page {
   }
 
   addExercise(name: string) {
-    this.exercises.push({
-      exerciseName: name,
-      exerciseNumber: this.exercises.length + 1
-    });
+    this.workout.addExercise(name);
   }
 
   addSet() {
-    this.sets.push({
-      setNumber: this.sets.length
-    });
+    this.workout.addSet();
   }
-
-
 }
