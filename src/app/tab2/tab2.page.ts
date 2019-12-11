@@ -1,23 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../services/storage.service';
+import { Component } from '@angular/core';
+import { WorkoutService } from '../services/workout.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ExerciseDetailComponent } from './exercise-detail/exercise-detail.component';
+import { Exercise } from '../exercise';
+import { ExerciseCollectionService } from '../services/exercise-collection.service';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-
+/**
+ * The controller for the exercise collection list page
+ */
 export class Tab2Page {
 
-  exercises = [];
-
-  constructor(private storage: StorageService, public alertController: AlertController) {}
-
-  ngOnInit(){
-    this.loadExercises();
+  constructor(private alertController: AlertController, 
+              private workout: WorkoutService, 
+              private router: Router, 
+              private exerciseCollection: ExerciseCollectionService) {
+    this.exerciseCollection.loadExerciseCollection();
   }
 
+
+  /**
+   * Presents an exercise addition popup for adding an exercise.
+   */
   async presentAddExerciseAlert() {
     const alert = await this.alertController.create({
       header: 'Add Exercise',
@@ -37,7 +46,7 @@ export class Tab2Page {
           text: 'Add',
           handler: (input) => {
             if (input) {
-              this.addExercise(input.exerciseName);
+              this.exerciseCollection.addExercise(input.exerciseName);
             }
           }
         }
@@ -46,24 +55,19 @@ export class Tab2Page {
     await alert.present();
   }
 
-  addExercise(name: string) {
-    this.storage.addItems("exercises", name);
-    this.exercises.push(name);
-  }
 
-  deleteExercice(index: number) {
-    this.storage.deleteItem("exercises", index);
-    this.exercises.splice(index, 1);
+  /**
+   * Selects an exercise to either go to detail page or go back to workout if its active.
+   * @param exercise the exercise to select
+   */
+  selectExercise(exercise: Exercise): void {
+    if (this.workout.workoutActive) {
+      this.workout.addExercise(exercise);
+      this.router.navigate(['tabs', 'tab1']);
+    }
+    else {
+      this.router.navigate(["exercise-detail", exercise.id]);
+    }
   }
-
-  loadExercises() {
-    this.storage.getItems("exercises").then(savedExercises => {
-      this.exercises = savedExercises;
-    });
-  }
-
-  selectExercise(exercise) {
-    console.log(typeof exercise);
-  }
-
+  
 }

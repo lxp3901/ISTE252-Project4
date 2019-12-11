@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { WorkoutService } from '../services/workout.service';
-import { AlertController, NavController } from '@ionic/angular';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -9,25 +8,48 @@ import {Router} from "@angular/router";
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
+/**
+ * The workout page
+ */
 export class Tab1Page {
+  workoutStatus: string;
+  buttonsDisabled: boolean;
 
-  constructor(private alertController: AlertController,
-              private router: Router,
-              private workout: WorkoutService) {}
+  constructor(private router: Router, private workout: WorkoutService) {}
 
+
+  toggleWorkoutActive() {
+    if (this.workout.toggleWorkoutActive()) {
+      this.workoutStatus = "End Workout";
+      this.buttonsDisabled = false;
+    }
+    else {
+      this.workoutStatus = "Start Workout";
+      this.buttonsDisabled = true;
+    }
+  }
   
+  /**
+   * Navigates to the exercise list so the user can select an exercise.
+   */
   loadExerciseTab() {
-    // navigate to exercise list tab so the user can select an exercise
-    // ../tab2/tab2.page.html
     this.router.navigateByUrl('tabs/tab2');
     console.log('load exercise tab');
   }
-
-  addExercise(name: string) {
-    this.workout.addExercise(name);
+  
+  /**
+   * Initializes the workout page
+   */
+  ngOnInit() {
+    this.workoutStatus = 'Start Workout'
+    this.buttonsDisabled = true;
   }
 
-  addSet() {
-    this.workout.addSet();
+  /**
+   * Ends the current workout then calls the workout service to log it.
+   */
+  logIt() {
+    this.toggleWorkoutActive();
+    this.workout.logIt();
   }
 }

@@ -12,13 +12,17 @@
 </ion-header>
 
 <ion-content>
+    <div class="empty" *ngIf="!exerciseCollection.hasExercises">
+        <ion-icon name="alert"></ion-icon>
+        <h3>No saved exercises</h3>
+    </div>
   <ion-list>
-    <ion-item-sliding *ngFor="let exercise of exercises; let i = index">
-      <ion-item (click)="selectExercise(exercise)">
-          {{exercise}}
-      </ion-item>
+    <ion-item-sliding *ngFor="let exercise of exerciseCollection.exerciseCollection; let i = index">
+        <ion-item (click)=selectExercise(exercise)>
+            {{exercise.name}}
+        </ion-item>
       <ion-item-options>
-        <ion-button color="danger" (click)="deleteExercice(i)">
+        <ion-button color="danger" (click)="exerciseCollection.deleteExercice(i)">
             <ion-icon name="trash"></ion-icon>
         </ion-button>
       </ion-item-options>

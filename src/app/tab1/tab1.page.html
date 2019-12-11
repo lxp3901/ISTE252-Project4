@@ -1,28 +1,49 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Home
+      Workout
     </ion-title>
+    <ion-button slot="end" size="small" (click)="toggleWorkoutActive()" [innerHtml]="workoutStatus"></ion-button>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card *ngFor="let exercise of exercises">
+  <ion-card *ngFor="let entry of workout.workoutExercises">
     <ion-card-header>
-      <ion-card-title>Exercise {{exercise.exerciseNumber}}</ion-card-title>
-      <ion-card-subtitle>{{exercise.exerciseName}}</ion-card-subtitle>
+      <ion-card-title>Exercise {{entry.exerciseNumber}}</ion-card-title>
+      <ion-card-subtitle>{{entry.exercise.name}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Set 1</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-input type="number"></ion-input>
-        </ion-card-content>
-      </ion-card>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Set
+          </ion-col>
+          <ion-col>
+            Weight
+          </ion-col>
+          <ion-col>
+            Reps
+          </ion-col>
+        </ion-row>
+        <ion-row  *ngFor="let set of entry.sets; let i = index">
+          <ion-col>
+            {{i + 1}}
+          </ion-col>
+          <ion-col>
+            <ion-input #weight placeholder="0" max="1000" type="number" required="true" (ionBlur)="workout.updateSetWeight(entry, i, weight.value)"></ion-input>
+          </ion-col>
+          <ion-col>
+            <ion-input #reps placeholder="0" max="100" type="number" required="true" (ionBlur)="workout.updateSetReps(entry, i, reps.value)"></ion-input>
+          </ion-col>
+          <ion-button color="danger" size="small" (click)="workout.removeSet(i, entry.exerciseNumber)" [disabled]="buttonsDisabled">
+            <ion-icon name="close"></ion-icon>
+        </ion-button>
+        </ion-row>
+      </ion-grid>
+      
     </ion-card-content>
     <div class="center">
-      <ion-button fill="solid" size="small" shape="round">
+      <ion-button fill="solid" size="small" shape="round" (click)="workout.addSet(entry.exerciseNumber)" [disabled]="buttonsDisabled">
         Add Set
       </ion-button>
     </div>
@@ -30,11 +51,11 @@
   </ion-card>
   <div class="center">
     
-    <ion-button fill="solid" shape="round" routerLink="/tab2">
+    <ion-button fill="solid" shape="round" routerLink="/tab2" [disabled]="buttonsDisabled">
       Add Exercise
     </ion-button>
   </div>
 </ion-content>
 <ion-footer> 
-  <ion-button size="default" expand="block">Log it</ion-button>
+  <ion-button (click)="logIt()" size="default" expand="block" [disabled]="buttonsDisabled">Log it</ion-button>
 </ion-footer>

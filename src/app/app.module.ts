@@ -10,9 +10,15 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ExerciseDetailComponent } from './tab2/exercise-detail/exercise-detail.component';
+import { HistoryService } from './services/history.service';
+import { WorkoutService } from './services/workout.service';
+import { StorageService } from './services/storage.service';
+import { ExerciseCollectionService } from './services/exercise-collection.service';
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ExerciseDetailComponent],
   entryComponents: [],
   imports: [
     BrowserModule, 

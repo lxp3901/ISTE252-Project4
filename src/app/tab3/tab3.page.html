@@ -6,4 +6,24 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+    <div class="empty" *ngIf="!workoutRecords.hasRecords">
+        <ion-icon name="alert"></ion-icon>
+        <h3>No workouts logged</h3>
+    </div>
+  <ion-list>
+    <ion-card *ngFor="let workout of workoutRecords.records; let i = index">
+      <h3>{{workout.date}}</h3>
+      <ion-card *ngFor="let entry of workout.exerciseEntries">
+        <h4>{{entry.exercise.name}}</h4>
+        <ion-card *ngFor="let set of entry.sets">
+          Weight: {{set.weight}}
+          Reps: {{set.repCount}}
+        </ion-card>
+      </ion-card>
+      <ion-button expand="block" color="danger" (click)="workoutRecords.deleteWorkout(i)">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-card>
+  </ion-list>
+</ion-content>

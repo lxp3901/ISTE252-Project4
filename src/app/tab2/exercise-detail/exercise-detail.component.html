@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>
+      {{this.exercise.name}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div button *ngFor="let video of videos | async" (click)="openVideo(video.id.videoId)" detail-none>
+      <img [src]="video.snippet.thumbnails.high.url">
+      <h2>{{ video.snippet.title }}</h2>
+    </div>
+    <div *ngFor="let image of gifList" >
+  </div>
+  <img [src]="gifSrc">
+
+</ion-content>
